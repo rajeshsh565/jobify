@@ -10,11 +10,11 @@ import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import cloudinary from 'cloudinary';
-cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_NAME, 
-  api_key: process.env.CLOUDINARY_KEY, 
-  api_secret: process.env.CLOUDINARY_SECRET 
+import cloudinary from "cloudinary";
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
 });
 
 // router
@@ -37,7 +37,7 @@ app.use(express.static(path.resolve(__dirname, "./client/dist")));
 app.use(CookieParser());
 app.use(express.json());
 app.use(mongoSanitize());
-app.use(helmet())
+app.use(helmet());
 // app.disable("etag"); //disable caching for all
 
 app.post("/api/v1/test", validateTest, (req, res) => {
@@ -52,15 +52,13 @@ app.use("/api/v1/jobs", validateUser, jobRouter);
 app.use("/api/v1/users", validateUser, userRouter);
 app.use("/api/v1/auth", authRouter);
 
-
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client/dist", "index.html"))   // dot in "./client/dist" or nothing
+  res.sendFile(path.resolve(__dirname, "client/dist", "index.html")); // dot in "./client/dist" or nothing
 });
 //Not Found Controller for when the requested api route does not exist
-app.use("*", (req,res)=>{
-  res.status(404).json({msg:"route not found!"})
-}) ;
-
+app.use("*", (req, res) => {
+  res.status(404).json({ msg: "route not found!" });
+});
 
 //Server Error Controller to handle server errors or errors thrown manually
 app.use(errorHandlerMiddleware);
