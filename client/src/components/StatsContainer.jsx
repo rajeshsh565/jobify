@@ -21,7 +21,7 @@ const StatsContainer = ({ data }) => {
       id: 2
     },
     {
-      title:"pending",
+      title:"rejected",
       count:data.rejected || 0,
       icon:<FaBug/>,
       color:"#d66a6a",

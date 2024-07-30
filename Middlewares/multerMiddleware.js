@@ -6,7 +6,6 @@ const storage = multer.memoryStorage();
 const upload = multer({storage});
 
 const dataParser = new DataParser();
-
 export const formatImage = (file) => {
   const fileExtension = path.extname(file.originalname).toString();
   return dataParser.format(fileExtension, file.buffer).content;
